@@ -1,3 +1,5 @@
+use crate::bin::config::print_config;
+
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[derive(serde::Deserialize, serde::Serialize)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
@@ -17,7 +19,7 @@ impl Default for TemplateApp {
             value: 2.7,
         }
     }
-}
+}   
 
 impl TemplateApp {
     /// Called once before the first frame.
@@ -34,7 +36,6 @@ impl TemplateApp {
         Default::default()
     }
 }
-
 impl eframe::App for TemplateApp {
     /// Called by the frame work to save state before shutdown.
     fn save(&mut self, storage: &mut dyn eframe::Storage) {
@@ -66,6 +67,7 @@ impl eframe::App for TemplateApp {
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
+            print_config();
             // The central panel the region left after adding TopPanel's and SidePanel's
             ui.heading("eframe template");
 
