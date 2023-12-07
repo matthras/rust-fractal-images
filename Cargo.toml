@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Matthew Mack <matthew.y.p.mack@gmail.com>"]
 edition = "2021"
 rust-version = "1.72"
-
+default-run = "rust_fractal_images"
 
 [dependencies]
 egui = "0.24.1"
