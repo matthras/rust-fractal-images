@@ -3,3 +3,4 @@
 mod app;
 pub use app::TemplateApp;
 mod bin;
+pub use egui_extras::install_image_loaders;
