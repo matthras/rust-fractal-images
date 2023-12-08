@@ -43,5 +43,7 @@ fn generate_julia_fractal() {
     }
 
     // Save the image as “fractal.png”, the format is deduced from the path
-    imgbuf.save("./fractal.png").unwrap();
+    let mut image_path = String::from("./src/bin/img/"); // Immutable since file name won't change
+    image_path.push_str("fractal.png"); // Change this later based on info needed to encode image
+    imgbuf.save(image_path).unwrap();
 }
