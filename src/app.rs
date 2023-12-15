@@ -5,19 +5,21 @@ use egui_extras::install_image_loaders;
 #[derive(serde::Deserialize, serde::Serialize)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
 pub struct TemplateApp {
-    // Example stuff:
+    // Define types of state variables here.
     label: String,
 
     #[serde(skip)] // This how you opt-out of serialization of a field
     value: f32,
+    fractal_display: bool,
 }
 
 impl Default for TemplateApp {
     fn default() -> Self {
         Self {
-            // Example stuff:
+            // Set initial values of state variables here
             label: "Hello World!".to_owned(),
             value: 2.7,
+            fractal_display: true,
         }
     }
 }   
@@ -27,7 +29,8 @@ impl TemplateApp {
     pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
         // This is also where you can customize the look and feel of egui using
         // `cc.egui_ctx.set_visuals` and `cc.egui_ctx.set_fonts`.
-        install_image_loaders(&cc.egui_ctx);
+        install_image_loaders(&cc.egui_ctx); // Required for loading images into egui app
+
         // Load previous app state (if any).
         // Note that you must enable the `persistence` feature for this to work.
         if let Some(storage) = cc.storage {
@@ -87,8 +90,14 @@ impl eframe::App for TemplateApp {
                 "https://github.com/emilk/eframe_template/blob/master/",
                 "Source code."
             ));
-            ui.image(egui::include_image!("bin/img/fractal.png"));
-
+            ui.group(|ui| {
+                ui.checkbox(&mut self.fractal_display, "Show fractal");
+                ui.set_visible(self.fractal_display);
+                if ui.button("Generate fractal").clicked() {
+                  // Generate new fractal  
+                };
+                ui.image(egui::include_image!("bin/img/fractal.png"));
+            });
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 powered_by_egui_and_eframe(ui);
                 egui::warn_if_debug_build(ui);
